@@ -1,10 +1,15 @@
 import pybullet as p
+import pybullet_data
 import time
+
 physicsClient = p.connect(p.GUI)
-# p.configureDebugVisualizer(p.COV_ENABLE_GUI,0)
-p.loadSDF("box.sdf")
-for i in range(1000):
-  p.stepSimulation()
-  time.sleep(0.05)
-  print(i)
+p.setAdditionalSearchPath(pybullet_data.getDataPath())
+
+planeId = p.loadURDF("plane.urdf")
+p.loadSDF("boxes.sdf")
+p.setGravity(0, 0, -9.8)
+
+while True:
+    p.stepSimulation()
+    time.sleep(0.005)
 p.disconnect()
